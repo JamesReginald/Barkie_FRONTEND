@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Barkie betting systeem</title>
+
+    <!-- External CSS file -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- jQuery framework, has to be loaded before other JS libraries that uses jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap CSS file -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Bootstrap (minified) JS file -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!-- Google font import -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,500,700,800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Active</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+        </ul>
+
+        <div id="title">
+            barkie.
+        </div>
+    </header>
+
+    <div class="section game-tables" id="firstUpcomingGames">
+        <p class="table-title"><strong>12-12-2019</strong></p>
+        <table class="table" >
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Wedstrijd</th>
+                    <th scope="col">Speeltijd</th>
+                </tr>
+            </thead>
+            <tbody>
+            
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        window.onload = getLastTenGames;
+        let tableBodyEl = document.querySelector('#firstUpcomingGames tbody');
+
+        function getLastTenGames() {
+
+            var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() { 
+                    if (this.readyState == 4) {
+                        console.log(this.responseText);
+                        var wedstrijden = JSON.parse(this.responseText);
+                        for (let index = 0; index < wedstrijden.length; index++) {
+                            createTableRow(index, wedstrijden[index]);
+                        }
+                        console.log(wedstrijden);
+                    }
+                }
+                xhr.open("GET", "http://localhost:8082/wedstrijden", true);
+                xhr.send();
+        }
+
+        function createTableRow(index, wedstrijd) {
+            
+            let row = document.createElement('tr');
+            row.innerHTML = '<tr>' + 
+                            '<th scope="row">' + index + '</th>' +
+                            '<td>TESTGAME</td>' +
+                            '<td>' + wedstrijd.beginTijd + '</td>' +
+                        '</tr>';
+            tableBodyEl.appendChild(row);
+        }
+        </script>
+</body>
+</html>
