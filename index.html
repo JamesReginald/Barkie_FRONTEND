@@ -35,6 +35,10 @@
     </header>
 
     <div class="section game-tables" id="firstUpcomingGames">
+        <input type="text" id="wedstrijdJaar"/>
+        <input type="text" id="wedstrijdMaand"/>
+        <input type="text" id="wedstrijdDag"/>
+        <button id="addWedstrijdButton">Add wedstrijd</button>
         <p class="table-title"><strong>12-12-2019</strong></p>
         <table class="table" >
             <thead>
@@ -53,6 +57,10 @@
     <script>
         window.onload = getLastTenGames;
         let tableBodyEl = document.querySelector('#firstUpcomingGames tbody');
+        let addWedstrijdButton = document.getElementById('addWedstrijdButton');
+        let jaar = document.getElementById('wedstrijdJaar');
+        let maand = document.getElementById('wedstrijdMaand');
+        let dag = document.getElementById('wedstrijdDag');
 
         function getLastTenGames() {
 
@@ -70,6 +78,20 @@
                 xhr.open("GET", "http://localhost:8082/wedstrijden", true);
                 xhr.send();
         }
+
+        addWedstrijdButton.addEventListener('click', function() {
+           
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() { 
+                    if (this.readyState == 4) {
+                        console.log(this.responseText);
+                        location.reload();
+                    }
+                }
+                xhr.open("POST", "http://localhost:8082/wedstrijd/" + jaar.value + '/' + maand.value + '/' + dag.value , true);
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xhr.send();
+        });
 
         function createTableRow(index, wedstrijd) {
             
