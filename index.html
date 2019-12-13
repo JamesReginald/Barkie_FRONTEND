@@ -16,16 +16,16 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,500,700,800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
+    <header id="index-header">
         <ul class="nav justify-content-end">
             <li class="nav-item">
-                <a class="nav-link active" href="#">Active</a>
+                <a class="nav-link" href="toevoegenWedstrijd.html">Toevoegen wedstrijd</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="#">Wallet</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="#">Account</a>
             </li>
         </ul>
 
@@ -34,17 +34,14 @@
         </div>
     </header>
 
-    <div class="section game-tables" id="firstUpcomingGames">
-        <input type="text" id="wedstrijdJaar"/>
-        <input type="text" id="wedstrijdMaand"/>
-        <input type="text" id="wedstrijdDag"/>
-        <button id="addWedstrijdButton">Add wedstrijd</button>
-        <p class="table-title"><strong>12-12-2019</strong></p>
+    <div class="container" id="firstUpcomingGames">
+        <p class="table-title"><strong>Datum</strong></p> <!-- TODO: PRINT HIER DE DATUM UIT PER WEDSTRIJDDAG -->
         <table class="table" >
             <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Wedstrijd</th>
+                    <th scope="col">Competitie</th>
                     <th scope="col">Speeltijd</th>
                 </tr>
             </thead>
@@ -54,13 +51,14 @@
         </table>
     </div>
 
+    <footer>
+        <span>&copy; 2019 - De 3 J's</span>
+    </footer>
+
     <script>
         window.onload = getLastTenGames;
         let tableBodyEl = document.querySelector('#firstUpcomingGames tbody');
         let addWedstrijdButton = document.getElementById('addWedstrijdButton');
-        let jaar = document.getElementById('wedstrijdJaar');
-        let maand = document.getElementById('wedstrijdMaand');
-        let dag = document.getElementById('wedstrijdDag');
 
         function getLastTenGames() {
 
@@ -79,28 +77,14 @@
                 xhr.send();
         }
 
-        addWedstrijdButton.addEventListener('click', function() {
-           
-                var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function() { 
-                    if (this.readyState == 4) {
-                        console.log(this.responseText);
-                        location.reload();
-                    }
-                }
-                xhr.open("POST", "http://localhost:8082/wedstrijd/" + jaar.value + '/' + maand.value + '/' + dag.value , true);
-                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-                xhr.send();
-        });
-
         function createTableRow(index, wedstrijd) {
-            
             let row = document.createElement('tr');
-            row.innerHTML = '<tr>' + 
-                            '<th scope="row">' + index + '</th>' +
-                            '<td>TESTGAME</td>' +
-                            '<td>' + wedstrijd.beginTijd + '</td>' +
-                        '</tr>';
+            row.innerHTML =     '<tr>' + 
+                                        '<th scope="row">' + index + '</th>' +
+                                        '<td>FC Barcelona - Liverpool (HARDCODED)</td>' +
+                                        '<td>Champions League (HARDCODED)</td>' +
+                                        '<td>' + wedstrijd.beginTijd + '</td>' +
+                                    '</tr>';
             tableBodyEl.appendChild(row);
         }
         </script>
