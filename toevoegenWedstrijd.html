@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Barkie betting systeem</title>
+
+    <!-- External CSS file -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- jQuery framework, has to be loaded before other JS libraries that uses jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap CSS file -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Bootstrap (minified) JS file -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!-- Google font import -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,500,700,800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <ul class="nav justify-content-end" style="width: 100%; min-height: 200px; background: black;">
+            <li class="nav-item">
+                <a class="nav-link" href="toevoegenWedstrijd.html">Toevoegen wedstrijd</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Wallet</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Account</a>
+            </li>
+        </ul>
+        <!-- REMOVE THIS AFTER PHOTO IS ADDED -->
+        <p style="color: white !important; position: absolute; top: 50px; left: 300px;">Hier komt een foto te staan</p>
+    </header>
+
+    <div class="container">
+        <h1>Voeg een wedstrijd toe</h1>
+
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="selectCompetitie">Selecteer competitie</label>
+                    <select id="selectCompetitie" class="form-control">
+                        <option selected>Selecteer</option>
+                        <option>Champions League</option>
+                        <option>La Liga</option>
+                        <option>Eredivisie</option>
+                    </select>          
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputDatumTijd">Selecteer datum en tijd</label>
+                    <input type="datetime-local" id="speelDatumTijd" class="form-control">   
+                </div>
+            </div>
+            
+            <div class="row">
+                <!-- CARD THUIS TEAM -->
+                <div class="form-group col-md-4">
+                    <div class="card bg-light mb-3">
+                        <div class="card-header">Thuisteam</div>
+                        <div class="card-body">
+                            <label for="selectThuisTeam">Selecteer team</label>
+                            <select id="selectThuisTeam" class="form-control mb-3">
+                                <option selected>Selecteer</option>
+                                <option>FC Barcelona</option>
+                                <option>Liverpool</option>
+                                <option>Arsenal</option>
+                            </select>
+                            <label for="kansThuis">Kans thuisteam</label>
+                            <input type="text" class="form-control" id="kansThuis"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <div class="card bg-light mb-3">
+                        <div class="card-header">Gelijkspel</div>
+                        <div class="card-body">
+                            <label for="kansGelijkspel">Kans gelijkspel</label>
+                            <input type="text" disabled class="form-control" id="kansGelijkspel"/>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD UIT TEAM -->
+                <div class="form-group col-md-4">
+                    <div class="card bg-light mb-3">
+                        <div class="card-header">Uitteam</div>
+                        <div class="card-body">
+                            <label for="selectUitTeam">Selecteer team</label>
+                            <select id="selectUitTeam" class="form-control mb-3">
+                                <option selected>Selecteer</option>
+                                <option>FC Barcelona</option>
+                                <option>Liverpool</option>
+                                <option>Arsenal</option>
+                            </select>
+                            <label for="kansThuis">Kans uitteam</label>
+                            <input type="text" class="form-control" id="kansThuis"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+            <button type="button" id="addWedstrijdButton" class="btn btn-primary float-right">Submit</button>
+        </form>
+    </div>
+
+    <footer>
+        <span>&copy; 2019 - De 3 J's</span>
+    </footer>
+
+    <script>
+
+        let addWedstrijdButton = document.getElementById('addWedstrijdButton');
+        let datumTijdInput = document.getElementById('speelDatumTijd');
+        let teamThuisInput = document.getElementById('selectThuisTeam');
+        let teamUitInput = document.getElementById('selectUitTeam');
+
+        addWedstrijdButton.addEventListener('click', function() {
+            let xhr = new XMLHttpRequest();
+            let datumTijdVal = datumTijdInput.value;
+            datumTijdVal += ":00";
+
+            let wedstrijd = { beginTijd : datumTijdVal };
+            console.log(datumTijdVal);
+
+            xhr.onreadystatechange = function() { 
+                if (this.readyState == 4) {
+                    console.log(this.responseText);
+                }
+            }
+
+            xhr.open("POST", "http://localhost:8082/wedstrijd/" , true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.send(JSON.stringify(wedstrijd));
+        });
+    </script>
+</body>
+</html>
