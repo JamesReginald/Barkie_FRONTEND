@@ -61,7 +61,6 @@
         let addWedstrijdButton = document.getElementById('addWedstrijdButton');
 
         function getLastTenGames() {
-
             var xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() { 
                     if (this.readyState == 4) {
@@ -80,11 +79,11 @@
         function createTableRow(index, wedstrijd) {
             let row = document.createElement('tr');
             row.innerHTML =     '<tr>' + 
-                                        '<th scope="row">' + index + '</th>' +
-                                        '<td>FC Barcelona - Liverpool (HARDCODED)</td>' +
-                                        '<td>Champions League (HARDCODED)</td>' +
-                                        '<td>' + wedstrijd.beginTijd + '</td>' +
-                                    '</tr>';
+                                    '<th scope="row">' + index + '</th>' +
+                                    '<td>' + wedstrijd.teamThuis + ' - ' + wedstrijd.teamUit + '</td>' +
+                                    '<td>' + wedstrijd.competitie + '</td>' +
+                                    '<td>' + wedstrijd.beginTijd + '</td>' +
+                                '</tr>';
             tableBodyEl.appendChild(row);
         }
         </script>

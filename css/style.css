@@ -75,7 +75,25 @@ p.table-title {
 footer {
     height: 30px;
     background: black;
-    margin-top: 100px;
     color: white;
     text-align: center;
+}
+
+#login-container {
+    font-family: 'Roboto Slab', serif;
+}
+
+#login-left {
+    width: 30%;
+    height: 100vh;
+    float: left;
+    color: black;
+}
+
+#login-right {
+    float: right;
+    width: 70%;
+    height: 100vh;
+    background: black;
+    color: white;
 }

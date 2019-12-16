@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Barkie betting systeem</title>
+
+    <!-- External CSS file -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- jQuery framework, has to be loaded before other JS libraries that uses jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap CSS file -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Bootstrap (minified) JS file -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!-- Google font import -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,500,700,800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="login-container">
+        <div id="login-left">
+
+            <div class="container">
+                <input type="text" id="gebruikersnaamInput" >
+                <input type="text" id="passwordInput" >
+                <button type="button" id="registreerButton">Registreer</button>
+            </div>
+    
+        </div>
+        <div id="login-right">
+            <h1>Hallo maat!</h1>
+            <p></p>
+        </div>
+    </div>   
+        
+
+    <script>
+        let registreerButton = document.getElementById('registreerButton');
+        let gebruikersnaamInput = document.getElementById('gebruikersnaamInput');
+        let passwordInput = document.getElementById('passwordInput');
+        let registerMessageEl = document.querySelector('#login-right p');
+
+        registreerButton.addEventListener('click', function () {
+            let xhr = new XMLHttpRequest();
+            let gebruikersNaamVal = gebruikersnaamInput.value;
+            let passwordVal = passwordInput.value;
+            let gebruiker = { gebruikersNaam : gebruikersNaamVal, password :  passwordVal };
+
+            console.log(gebruiker);
+
+            xhr.onreadystatechange = function() { 
+                console.log(this.responseText);
+                if (this.status == 200 && this.readyState == 4) {
+                    registerMessageEl.innerHTML = "Succesvol geregistreerd";
+                }
+            }
+
+            xhr.open("POST", "http://localhost:8082/gebruiker/create" , true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.send(JSON.stringify(gebruiker));
+        });
+    </script>
+</body>
+</html>
