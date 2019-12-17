@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Barkie betting systeem</title>
+
+    <!-- External CSS file -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- jQuery framework, has to be loaded before other JS libraries that uses jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap CSS file -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Bootstrap (minified) JS file -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!-- Google font import -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,500,700,800&display=swap" rel="stylesheet">
+    <!-- Google font import -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <div id="login-container">
+        <div class="left-side" id="left-side-background">
+
+            <div class="absolute-logo">
+                <span>Barkie.</span>
+            </div>
+        </div>
+        <div id="slogan">
+            <p>Nobody does it like Barkie</p>
+        </div>
+
+
+        <div id="right-side">
+            <div class="right-side-form">
+                <h1>Maak een account aan</h1>
+
+                <div class="container mt-5">
+                    <form>
+                        <div class="form-group">
+                            <label for="gebruikersnaamInput">Gebruikersnaam</label>
+                            <input type="text" class="form-control" id="gebruikersnaamInput" placeholder="Voer gebruikersnaam in">
+                        </div>
+                        <div class="form-group">
+                            <label for="passwordInput">Wachtwoord</label>
+                            <input type="password" class="form-control" id="passwordInput" placeholder="Voer wachtwoord in">
+                        </div>
+                        <button type="button" id="registreerButton" class="mt-3">Registreer</button>
+                    </form>
+
+                    <p class="mt-4">Bestaande gebruiker? Log <a href="login.html">hier</a> in</p class>
+                </div>
+            </div>
+            <div id="registreer-alert"></div>
+        </div>
+    </div>
+    
+
+    <script>
+        $('.alert').alert();
+
+        let registreerButton = document.getElementById('registreerButton');
+        let gebruikersnaamInput = document.getElementById('gebruikersnaamInput');
+        let passwordInput = document.getElementById('passwordInput');
+        let registreerAlert = document.getElementById('registreer-alert');
+
+        registreerButton.addEventListener('click', function () {
+            let xhr = new XMLHttpRequest();
+            let gebruikersNaamVal = gebruikersnaamInput.value;
+            let passwordVal = passwordInput.value;
+            let gebruiker = { gebruikersNaam : gebruikersNaamVal, password :  passwordVal };
+
+            xhr.onreadystatechange = function() { 
+                console.log(this.responseText);
+                if(this.readyState == 4) {
+                    registreerAlert.append(createAlert(this.status));
+                }
+            }
+
+            xhr.open("POST", "http://localhost:8082/gebruiker/create" , true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.send(JSON.stringify(gebruiker));
+        });
+
+        // TODO JOEY: MAKE IT SEXXYYYYYY
+        function createAlert(responseStatus) {
+            let alertEl = document.createElement('div');
+            if (responseStatus == 200) {
+                alertEl.innerHTML = '<div class="alert alert-primary align-bottom" role="alert" style="width: 95%; margin: auto;">' +
+                                        'U bent succesvol aangemeld' +
+                                    '</div>';
+            } else if(responseStatus == 400){
+                alertEl.innerHTML = '<div class="alert alert-danger align-bottom" role="alert" style="width: 95%; margin: auto;">' +
+                                        'Gebruikersnaam bestaat al!' +
+                                    '</div>';
+            } else {
+                alertEl.innerHTML = '<div class="alert alert-danger align-bottom" role="alert" style="width: 95%; margin: auto;">' +
+                                        'Er is iets mis met de server. Neem contact op met de administrator.' +
+                                    '</div>';
+            }
+            return alertEl;
+        }
+
+    </script>
+</body>
+</html>
