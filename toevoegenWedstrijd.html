@@ -94,7 +94,7 @@
                                 <option>Arsenal</option>
                             </select>
                             <label for="kansThuis">Kans uitteam</label>
-                            <input type="text" class="form-control" id="kansThuis"/>
+                            <input type="text" class="form-control" id="kansUit"/>
                         </div>
                     </div>
                 </div>
@@ -111,21 +111,36 @@
     <script>
 
         let addWedstrijdButton = document.getElementById('addWedstrijdButton');
+        let competitieInput = document.getElementById('selectCompetitie');
         let datumTijdInput = document.getElementById('speelDatumTijd');
         let teamThuisInput = document.getElementById('selectThuisTeam');
         let teamUitInput = document.getElementById('selectUitTeam');
+        let kansThuisInput = document.getElementById('kansThuis');
+        let kansUitInput = document.getElementById('kansUit');
 
         addWedstrijdButton.addEventListener('click', function() {
             let xhr = new XMLHttpRequest();
             let datumTijdVal = datumTijdInput.value;
+            let competitieVal = competitieInput.value;
+            let teamThuisVal = teamThuisInput.value;
+            let teamUitVal = teamUitInput.value;
+            let kansThuis = kansThuisInput.value;
+            let kansUit = kansUitInput.value;
+
             datumTijdVal += ":00";
 
-            let wedstrijd = { beginTijd : datumTijdVal };
-            console.log(datumTijdVal);
+            let wedstrijd = { 
+                competitie : competitieVal, 
+                teamThuis : teamThuisVal, 
+                teamUit : teamUitVal, 
+                beginTijd : datumTijdVal 
+                };
+            console.log(wedstrijd);
 
             xhr.onreadystatechange = function() { 
                 if (this.readyState == 4) {
                     console.log(this.responseText);
+                    location.reload();
                 }
             }
 
