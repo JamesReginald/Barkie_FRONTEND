@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Barkie betting systeem</title>
+
+    <!-- External CSS file -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- jQuery framework, has to be loaded before other JS libraries that uses jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap CSS file -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Bootstrap (minified) JS file -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!-- Google font import -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,500,700,800&display=swap" rel="stylesheet">
+    <!-- Google font import -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <div id="login-container">
+        <div class="left-side" id="left-side-background">
+
+            <div class="absolute-logo">
+                <span>Barkie.</span>
+            </div>
+        </div>
+        <div id="slogan">
+            <p>Nobody does it like Barkie</p>
+        </div>
+
+        <div id="right-side">
+            <h1 style="color: black;">BarkieCoins Kopen</h1>
+            <div id="barkieCoinButtons" class="container mt-5 text-center">
+                <select id="selectCompetitie" class="form-control col-md-4">
+                    <option selected>Selecteer</option>
+                    <option>5</option>
+                    <option>10</option>
+                    <option>20</option>
+                </select>
+                <div>
+                    <text id="cancelKoopButton" style="text-decoration-line: underline;">cancel</text>
+                    <button id="koopButton">BarkieCoins kopen</button>
+                </div>
+                <div>
+                    <text id="cancelSellButton" style="text-decoration-line: underline;">cancel</text>
+                    <button id="sellButton">BarkieCoins verkopen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <span>&copy; 2019 - De 3 J's</span>
+    </footer>
+    
+    <script>
+        let koopButton = document.getElementById("koopButton");
+        let cancelKoopButton = document.getElementById("cancelKoopButton");
+
+        cancelKoopButton.hidden = true;
+        let sellButton = document.getElementById("sellButton");
+        let cancelSellButton = document.getElementById("cancelSellButton");
+        cancelSellButton.hidden = true;
+
+        cancelKoopButton.addEventListener('click', function() {
+            cancelKoopButton.hidden = true;
+        })
+
+        koopButton.addEventListener('click', function() {
+            cancelKoopButton.hidden = false;
+        });
+
+        cancelSellButton.addEventListener('click', function() {
+            cancelSellButton.hidden = true;
+        })
+
+        sellButton.addEventListener('click', function() {
+            cancelSellButton.hidden = false;
+        });
+    </script>
+</body>
+</html>
