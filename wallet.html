@@ -32,20 +32,21 @@
 
         <div id="right-side">
             <h1 style="color: black;">BarkieCoins Kopen</h1>
+
             <div id="barkieCoinButtons" class="container mt-5 text-center">
-                <select id="selectCompetitie" class="form-control col-md-4">
-                    <option selected>Selecteer</option>
-                    <option>5</option>
-                    <option>10</option>
-                    <option>20</option>
-                </select>
+                <div class="form-group col-lg-4 offset-lg-4">
+                    <label for="inputBedrag">Bedrag:</label>
+                    <input type="number" min="0.00" step="0.05" value="1.00" id="inputBedrag" class="form-control">
+                </div>
+
                 <div>
                     <text id="cancelKoopButton" style="text-decoration-line: underline;">cancel</text>
                     <button id="koopButton">BarkieCoins kopen</button>
                 </div>
+                
                 <div>
                     <text id="cancelSellButton" style="text-decoration-line: underline;">cancel</text>
-                    <button id="sellButton">BarkieCoins verkopen</button>
+                    <button id="sellButton">BarkieCoins inwisselen</button>
                 </div>
             </div>
         </div>
@@ -58,27 +59,73 @@
     <script>
         let koopButton = document.getElementById("koopButton");
         let cancelKoopButton = document.getElementById("cancelKoopButton");
-
-        cancelKoopButton.hidden = true;
         let sellButton = document.getElementById("sellButton");
         let cancelSellButton = document.getElementById("cancelSellButton");
+        let inputBedrag = document.getElementById("inputBedrag");
+
+        let koopPressed = false;
+        let sellPressed = false;
+
         cancelSellButton.hidden = true;
+        cancelKoopButton.hidden = true;
 
         cancelKoopButton.addEventListener('click', function() {
-            cancelKoopButton.hidden = true;
-        })
+            resetButtons()
+        });
 
         koopButton.addEventListener('click', function() {
-            cancelKoopButton.hidden = false;
+            if(koopPressed) {
+                postAanvraag();
+                resetButtons();
+            } else {
+                inputBedrag.setAttribute('disabled', 'true');
+                koopButton.className = "btn-danger";
+                koopButton.textContent = inputBedrag.value + " kopen. Zeker?";
+                cancelKoopButton.hidden = false;
+                koopPressed = true;
+            }
         });
 
         cancelSellButton.addEventListener('click', function() {
-            cancelSellButton.hidden = true;
-        })
+            resetButtons();
+        });
 
         sellButton.addEventListener('click', function() {
-            cancelSellButton.hidden = false;
+            if(sellPressed) {
+                alert("TODO: barkieCoins verkopen.");
+                resetButtons();
+            } else {
+                inputBedrag.setAttribute('disabled', 'true');
+                sellButton.className = "btn-danger";
+                sellButton.textContent = inputBedrag.value + " inwisselen. Zeker?";
+                cancelSellButton.hidden = false;
+                sellPressed = true;
+            }
         });
+
+        function resetButtons() {
+            inputBedrag.removeAttribute('disabled');
+            cancelKoopButton.hidden = cancelSellButton.hidden = true;
+            koopButton.textContent = "BarkieCoins kopen";
+            sellButton.textContent = "BarkieCoins inwisselen";
+            koopButton.className = sellButton.className = "btn-default";
+            koopPressed = sellPressed = false;
+        }
+
+        function postAanvraag() {
+            let xhr = new XMLHttpRequest();
+            let aanvraag = { bedrag : inputBedrag.value, is_goedgekeurd : false, gebruiker_id : window.localStorage.getItem('gebruiker_id')};
+            
+            xhr.onreadystatechange = function() {
+                console.log(this.responseText);
+                if (this.readyState == 4) {
+                    
+                }
+            }
+            xhr.open("POST", "http://localhost:8082/aanvraag/" , true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.send(JSON.stringify(aanvraag));
+        }
     </script>
 </body>
 </html>
