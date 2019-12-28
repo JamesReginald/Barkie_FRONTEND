@@ -32,6 +32,41 @@ header#index-header {
     width: 100%;
 }
 
+header#wedstrijd-details-header {
+    background: url('../media/header.jpg') no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 40vh;
+    width: 100%;
+}
+
+header#wedstrijd-details-header::before {
+    content: '';
+    width: 100%;
+    height: 40vh;
+    float: left;
+    background: rgba(10, 100, 128, 0.8);
+}
+
+.nav-wedstrijd-details {
+    width: 100%;
+    background: rgba(10, 100, 128, 0.8);
+    color: white;
+    padding: 10px;
+}
+
+.nav-wedstrijd-details a:link {
+    color: white;
+}
+
+.nav-wedstrijd-details a:visited {
+    color: white;
+}
+
+.nav-wedstrijd-details a:active {
+    text-decoration: underline;
+}
+
 header a:link {
     color: white;
 }
@@ -44,6 +79,12 @@ header a:hover {
     text-decoration: underline !important;
 }
 
+ul.nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
 #title{
     margin: auto auto;
     font-weight: 800;
@@ -52,6 +93,11 @@ header a:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.section {
+    height: 100vh;
+    width: 100%;
 }
 
 p.table-title {
@@ -63,6 +109,10 @@ p.table-title {
     margin: auto auto;
 }
 
+.weddenschap-button {
+    min-width: 50px;
+}
+
 #firstUpcomingGames p {
     margin-top: 50px;
 }
@@ -70,6 +120,11 @@ p.table-title {
 .container h1 {
     font-size: 20px;
     margin: 50px 0;
+}
+
+#wedstrijd-uitslag {
+    height: 40vh;
+    background: red;
 }
 
 footer {

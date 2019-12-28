@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Barkie betting systeem</title>
+
+    <!-- External CSS file -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- jQuery framework, has to be loaded before other JS libraries that uses jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap CSS file -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Bootstrap (minified) JS file -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!-- Google font import -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,500,700,800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header id="wedstrijd-details-header">
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="wallet.html">Wallet</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="registreer.html">Account</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="dashboard/dashboard-index.html">Dashboard</a>
+            </li>
+        </ul>
+
+        <!-- MATCH CARD -->
+        <div class="container-fluid position-absolute" >
+            <div class="row text-center" style="height: 40vh;"> 
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 text-right align-self-end mb-3" style="font-size: 20px;">
+                    Liverpool
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 text-center align-self-center mb3">
+                    <p style="font-size: 80px; font-weight: 800;">4 - 0</p>
+                    <p>21-01-2020</p>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 text-left align-self-end mb-3" style="font-size: 20px;">
+                    FC Barcelona
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="nav-wedstrijd-details">
+        <div class="container">
+            <div class="row text-center justify-content-center">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-4 col-4">
+                    <a href="#">Statistieken</a>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-4 col-4">
+                    <a href="#">Weddenschappen</a>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-4 col-4">
+                    <a href="#">Teams</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+
+            <!-- FOOTBALL LOGO'S -->
+            <div class="row">
+
+            </div>
+
+            <!--  -->
+            <div class="row">
+                
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <span>&copy; 2019 - De 3 J's</span>
+    </footer>
+
+    <script>
+        let tableBodyEl = document.querySelector('#firstUpcomingGames tbody');
+        $(document).ready(getLastTenGames());
+
+        function getLastTenGames() {
+            var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() { 
+                    if (this.readyState == 4) {
+                        console.log(this.responseText);
+                        var wedstrijden = JSON.parse(this.responseText);
+                        for (let index = 0; index < wedstrijden.length; index++) {
+                            createTableRow(index, wedstrijden[index]);
+                        }
+                        console.log(wedstrijden);
+                    }
+                }
+                xhr.open("GET", "http://localhost:8082/wedstrijden", true);
+                xhr.send();
+        }
+
+        </script>
+        </script>
+</body>
+</html>

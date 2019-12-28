@@ -15,17 +15,17 @@
     <!-- Google font import -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,500,700,800&display=swap" rel="stylesheet">
 </head>
-<body id="indexBody">
+<body>
     <header id="index-header">
         <ul class="nav justify-content-end">
             <li class="nav-item">
-                <a class="nav-link" href="toevoegenWedstrijd.html">Toevoegen wedstrijd</a>
+                <a class="nav-link" href="wallet.html">Wallet</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Wallet</a>
+                <a class="nav-link" href="registreer.html">Account</a>
             </li>
             <li class="nav-item">
-                <a id="navAccount" class="nav-link" href="registreer.html">Account</a>
+                <a class="nav-link" href="dashboard/dashboard-index.html">Dashboard</a>
             </li>
         </ul>
 
@@ -34,21 +34,26 @@
         </div>
     </header>
 
-    <div class="container" id="firstUpcomingGames">
-        <p class="table-title"><strong>Datum</strong></p> <!-- TODO: PRINT HIER DE DATUM UIT PER WEDSTRIJDDAG -->
-        <table class="table" >
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Wedstrijd</th>
-                    <th scope="col">Competitie</th>
-                    <th scope="col">Speeltijd</th>
-                </tr>
-            </thead>
-            <tbody>
-            
-            </tbody>
-        </table>
+    <div class="section">
+        <div class="container" id="firstUpcomingGames">
+            <p class="table-title"><strong>Datum</strong></p> <!-- TODO: PRINT HIER DE DATUM UIT PER WEDSTRIJDDAG -->
+            <table class="table" >
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Wedstrijd</th>
+                        <th scope="col">Competitie</th>
+                        <th scope="col">Speeltijd</th>
+                        <th scope="col">Kans thuisteam</th>
+                        <th scope="col">Kans gelijkspel</th>
+                        <th scope="col">Kans uitteam</th>
+                    </tr>
+                </thead>
+                <tbody>
+                
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <footer>
@@ -57,10 +62,7 @@
 
     <script>
         let tableBodyEl = document.querySelector('#firstUpcomingGames tbody');
-        let indexBody = document.getElementById('indexBody');
         
-        //indexBody.addEventListener("onload", getLastTenGames());
-
         $(document).ready(getLastTenGames());
 
         function getLastTenGames() {
@@ -83,17 +85,16 @@
             let row = document.createElement('tr');
             row.innerHTML =     '<tr>' + 
                                     '<th scope="row">' + index + '</th>' +
-                                    '<td>' + wedstrijd.teamThuis + ' - ' + wedstrijd.teamUit + '</td>' +
+                                    '<td>' + wedstrijd.thuisTeam.naamTeam + ' - ' + wedstrijd.uitTeam.naamTeam + '</td>' +
                                     '<td>' + wedstrijd.competitie + '</td>' +
                                     '<td>' + wedstrijd.beginTijd + '</td>' +
+                                    '<td><a href="wedstrijdDetails.html" class="btn btn-outline-success weddenschap-button">' + wedstrijd.kansThuis + '</button></td>' +
+                                    '<td><a href="wedstrijdDetails.html" class="btn btn-outline-success weddenschap-button">' + wedstrijd.kansGelijk + '</button></td>' +
+                                    '<td><a href="wedstrijdDetails.html" class="btn btn-outline-success weddenschap-button">' + wedstrijd.kansUit + '</button></td>' +
                                 '</tr>';
             tableBodyEl.appendChild(row);
         }
 
-        function testLink() {
-            console.log("in testLink");
-            navAccount.setAttribute()
-        }
         </script>
         </script>
 </body>
