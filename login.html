@@ -63,19 +63,20 @@
             let xhr = new XMLHttpRequest();
             let gebruikersNaamVal = gebruikersnaamInput.value;
             let passwordVal = passwordInput.value;
-            let gebruiker = { gebruikersNaam : gebruikersNaamVal, password :  passwordVal }
+            let gebruiker = { username : gebruikersNaamVal, password :  passwordVal }
 
             xhr.onreadystatechange = function() {
                 console.log(this.responseText);
                 if (this.readyState == 4) {
-                    window.localStorage.setItem('gebruiker_id', JSON.parse(this.responseText).gebruiker_id);
+                    console.log(this);
+                    window.sessionStorage.setItem('Authorization', this.getResponseHeader("Authorization"));
                     window.location = 'index.html';
                 }
             }
 
-            xhr.open("POST", "http://localhost:8082/gebruiker/login" , true);
+            xhr.open("POST", "http://localhost:8082/login?username=" + gebruikersNaamVal + "&password=" + passwordVal, true);
             xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-            xhr.send(JSON.stringify(gebruiker));
+            xhr.send();
         });
     </script>
 </body>
